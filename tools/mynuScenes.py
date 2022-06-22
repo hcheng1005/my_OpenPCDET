@@ -75,9 +75,11 @@ class DemoDataset(DatasetTemplate):
 
 
 def parse_config():
-    cfg_file = "cfgs/nuscenes_models/cbgs_voxel01_res3d_centerpoint.yaml"
-    ckpt = "cfgs/ckpt/nuScenes/cbgs_voxel01_centerpoint_nds_6454.pth"
-    data_path = "/home/charles/myDataSet/nuScenes/v1.0-mini/samples/LIDAR_TOP/"
+    # cfg_file = "cfgs/nuscenes_models/cbgs_voxel01_res3d_centerpoint.yaml"
+    # ckpt = "cfgs/ckpt/nuScenes/cbgs_voxel01_centerpoint_nds_6454.pth"
+    cfg_file = "cfgs/nuscenes_models/cbgs_dyn_pp_centerpoint.yaml"
+    ckpt = "cfgs/ckpt/nuScenes/cbgs_pp_centerpoint_nds6070.pth"
+    data_path = "/home/charles/myDataSet/nuScenes/v1.0-mini/sweeps/LIDAR_TOP/"
     # data_path='/home/charles/myDataSet/nuScenes/v1.0-mini/samples/LIDAR_TOP/'
 
     parser = argparse.ArgumentParser(description='arg parser')
