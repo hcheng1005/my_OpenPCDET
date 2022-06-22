@@ -19,6 +19,7 @@ def train_one_epoch(model, optimizer, train_loader, model_func, lr_scheduler, ac
         batch_time = common_utils.AverageMeter()
         forward_time = common_utils.AverageMeter()
 
+    #一个epoch执行多少个iter
     for cur_it in range(total_it_each_epoch):
         end = time.time()
         try:

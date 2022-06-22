@@ -33,4 +33,6 @@ python train.py --cfg_file="./cfgs/kitti_models/pointpillar.yaml"
 ```
 
 ### 4. 评估
-TBD
+```python
+python test.py --cfg_file ${CONFIG_FILE} --batch_size ${BATCH_SIZE} --ckpt ${CKPT}
+```
