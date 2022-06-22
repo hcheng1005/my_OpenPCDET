@@ -147,7 +147,7 @@ class PillarVFE(VFETemplate):
             use_lead_xyz:(4,) --> (1,1,1,1)
             voxels:(M,32,4) --> (x,y,z,r)
             voxel_coords:(M,4) --> (batch_index,z,y,x) batch_index代表了该点云数据在当前batch中的index
-            voxel_num_points:(M,)
+            voxel_num_points:(M,)  //每个pillar有多少个点
             image_shape:(4,2) 每份点云数据对应的2号相机图片分辨率
             batch_size:4    batch_size大小
         """
@@ -155,6 +155,7 @@ class PillarVFE(VFETemplate):
                                                     batch_dict['voxel_num_points'], \
                                                     batch_dict['voxel_coords']
         # 求每个pillar中所有点云的和 (M, 32, 3)->(M, 1, 3) 设置keepdim=True的，则保留原来的维度信息
+        # M表示有多少个pillar
         # 然后在使用求和信息除以每个点云中有多少个点来求每个pillar中所有点云的平均值 points_mean shape：(M, 1, 3)
         points_mean =  voxel_features[:, :, :3].sum(dim=1, keepdim=True) \
                        / voxel_num_points.type_as(voxel_features).view(-1, 1, 1)
@@ -208,7 +209,7 @@ class PillarVFE(VFETemplate):
         
         # (M, 64), 每个pillar抽象出一个64维特征
         for pfn in self.pfn_layers:
-            features = pfn(features)
+            features = pfn(features) #将[M, 32, 10]变成[]
         features = features.squeeze()
-        batch_dict['pillar_features'] = features
+        batch_dict['pillar_features'] = features  #得到每一个pillar的feature (M, 64)
         return batch_dict
